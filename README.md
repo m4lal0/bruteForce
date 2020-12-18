@@ -8,6 +8,15 @@
 [![By](https://img.shields.io/badge/By-m4lal0-green?style=flat-square&logo=github)](#)
 
 <p align="center">
+┏━━┓━━━━━━━━━┏┓━━━━━━━━━━┏━━━┓━━━━━━━━━━━━━━━
+┃┏┓┃━━━━━━━━┏┛┗┓━━━━━━━━━┃┏━━┛━━━━━━━━━━━━━━━
+┃┗┛┗┓┏━┓┏┓┏┓┗┓┏┛┏━━┓━━━━━┃┗━━┓┏━━┓┏━┓┏━━┓┏━━┓
+┃┏━┓┃┃┏┛┃┃┃┃━┃┃━┃┏┓┃━━━━━┃┏━━┛┃┏┓┃┃┏┛┃┏━┛┃┏┓┃
+┃┗━┛┃┃┃━┃┗┛┃━┃┗┓┃┃━┫━━━━┏┛┗┓━━┃┗┛┃┃┃━┃┗━┓┃┃━┫
+┗━━━┛┗┛━┗━━┛━┗━┛┗━━┛━━━━┗━━┛━━┗━━┛┗┛━┗━━┛┗━━┛
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 Pequeño script en Bash para realizar fuerza bruta a diferentes servicios
 </p>
 
@@ -22,7 +31,7 @@ cd bruteForce; chmod +x bruteForce.sh
 Al ejecutarlo nos mostrará un panel de ayuda:
 
 <p align="center">
-<img src="https://github.com/m4lal0/bruteForce/blob/master/images/helpPanel.png"
+<img src="https://github.com/m4lal0/bruteForce/blob/main/images/helpPanel.png"
 	alt="helpPanel"
 	width="1000"
 	style="float: left; margin-right: 10px;" />
