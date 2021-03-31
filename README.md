@@ -30,6 +30,6 @@ cd bruteForce; chmod +x bruteForce.sh
 
 Al ejecutarlo nos mostrará un panel de ayuda:
 
-![HelpPanel](./images/helpPanel2.png)
+![HelpPanel](./images/helpPanel.png)
 
 Con los parámetros definidos, en función del servicio seleccionado... se despleglará todo lo necesario de forma automática.
