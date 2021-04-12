@@ -147,6 +147,11 @@ declare -i parameter_counter=0; while getopts ":t:s:o:p:h:" opt; do
     esac
 done
 
+if [ "$EUID" -ne 0 ]; then
+	echo -e "\n${Cyan}[${BYellow}!${Cyan}] ${BRed}Este script debe ser ejecutado por r00t!${Color_Off}\n"
+	exit 1
+fi
+
 if [ $parameter_counter -eq 0 ]; then
     banner
     helpPanel
