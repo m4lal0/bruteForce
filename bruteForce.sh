@@ -74,21 +74,21 @@ function ctrl_c(){
 
 function banner(){
     clear
-    echo -e "\t${LRed}_________________________________________________________________________________"
-    echo -e "\t__|___|____|_____|______|_______|___|___|____|________|_____|______|__|____|___|_"
-    echo -e "\t_|___|______|_______|_____|____|___|______|____|___|_________|____|${LRed}By${LRed}_${LYellow}@m4lal0${LRed}_|__"
-    echo -e "\t\  |______|__|____|_____/  |_____|____\_   _____/___|______|__|_____|_______|____"
-    echo -e "\t_| __ \_\    _ \|  |   \    _\_/  _ \_|_|  ___)___/ __ \_\    _ \_/ ___\__/  _ \_"
-    echo -e "\t_| \_\ \_|  |_\/|  |  /_|  |__\   __/___|  \___|_(  \_\ )_|  |_\/\  \____\   __/_"
-    echo -e "\t_|___  /_|__|___|____/__|__|___\___  /_/___  /|___\____/__|__|____\___  /_\___  /"
-    echo -e "\t_____\/___|_______|_______|________\/______\/__|___|_______|__________\/______\/_"
-    echo -e "\t__|________|_________|___|______|_______|_____|______|______|_______|______|_____${Color_Off}\n"
+    echo -e "\t${LRed}____________________________________________________________________________________"
+    echo -e "\t__|____|______|_____|______|_______|___|___|____|________|_____|______|__|____|___|_"
+    echo -e "\t___|____|______|_______|_____|____|___|______|____|___|_________|____|${LRed}By${LRed}_${LYellow}@m4lal0${LRed}_|__"
+    echo -e "\t\_____    \__|__|____|_____/  |_____|____\_   _____/___|______|__|_____|_______|____"
+    echo -e "\t__|   |   /\    _ \|  |   \    _\_/  _ \_|_|  ___)___/ __ \_\    _ \_/ ___\__/  _ \_"
+    echo -e "\t__|   |   \_|  |_\/|  |  /_|  |__\   __/___|  \___|_(  \_\ )_|  |_\/\  \____\   __/_"
+    echo -e "\t_/______  /_|__|___|____/__|__|___\___  /_/___  /|___\____/__|__|____\___  /_\___  /"
+    echo -e "\t____|___\/___|_______|_______|________\/______\/__|___|_______|__________\/______\/_"
+    echo -e "\t_|_____|______|_________|___|______|_______|_____|______|______|_______|______|_____${Color_Off}\n"
 }
 
 function helpPanel(){
     echo -e "\n${BGray}Script para realizar fuerza bruta a diferentes servicios.${Color_Off}"
     echo -e "\n${BGray}USO:${Color_Off}"
-    echo -e "\t${BGray}./bruteForce.sh ${BRed}[opcion]${Color_Off}"
+    echo -e "\t${BGray}./bruteForce.sh ${BRed}[opción]${Color_Off}"
     echo -e "\n${BGray}OPCIONES:${Color_Off}"
     echo -e "\t${Cyan}[${BRed}-t, --target <target>${Cyan}] \t${BPurple}Dirección IP del objetivo.${Color_Off}"
     echo -e "\t${Cyan}[${BRed}-s, --service <service>${Cyan}] \t${BPurple}Nombre del Servicio: [FTP|SSH|TELNET|SMTP|POP3|SMB|SNMP|LDAP|REXEC|RLOGIN|IMAP|${Color_Off}"
@@ -98,7 +98,7 @@ function helpPanel(){
     echo -e "\t${Cyan}[${BRed}-h, --help${Cyan}] \t\t\t${BPurple}Mostrar este panel de ayuda.${Color_Off}"
     echo -e "\n${BGray}EJEMPLOS:${Color_Off}"
     echo -e "\t${BGreen}./bruteForce.sh -t <target> -s ftp ${IGray}: Fuerza bruta al servicio FTP por el puerto por default.${Color_Off}"
-    echo -e "\t${BGreen}./bruteForce.sh -t <target> -s ssh -o prueba ${IGray}: Fuerza bruta al servicio SSH y guardar el resultado en un archivo.${Color_Off}"
+    echo -e "\t${BGreen}./bruteForce.sh -t <target> -s ssh -o prueba.txt ${IGray}: Fuerza bruta al servicio SSH y guardar el resultado en un archivo.${Color_Off}"
     echo -e "\t${BGreen}./bruteForce.sh -t <target> -s http -p 8080,8081 ${IGray}: Fuerza bruta al servicio HTTP en los puertos 8080 y 8081.${Color_Off}"
     echo -e "\t${BGreen}./bruteForce.sh -t <target> --service all ${IGray}: Realiza fuerza bruta a todos los servicios que encuentra.${Color_Off}\n"
     tput cnorm; exit 0
