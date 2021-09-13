@@ -65,6 +65,8 @@ On_Purple='\033[45m'    # Purple
 On_Cyan='\033[46m'      # Cyan
 On_White='\033[47m'     # White
 
+VERSION=1.0.1
+
 trap ctrl_c INT
 
 function ctrl_c(){
@@ -95,6 +97,7 @@ function helpPanel(){
     echo -e "\t\t\t\t\t${BPurple}ORACLE|MYSQL|VNC|HTTP|JOOMLA|WORDPRESS|IRC|ALL].${Color_Off}"
     echo -e "\t${Cyan}[${BRed}-p, --port <port-range>${Cyan}] \t${BPurple}Especificar otro puerto o rango de puertos del servicio.${Color_Off}"
     echo -e "\t${Cyan}[${BRed}-o, --output <file>${Cyan}] \t\t${BPurple}Guardar el resultado en un archivo.${Color_Off}"
+    echo -e "\t${Cyan}[${BRed}-u, --update${Cyan}] \t\t\t${BPurple}Actualizar la herramienta a la última versión.${Color_Off}"
     echo -e "\t${Cyan}[${BRed}-h, --help${Cyan}] \t\t\t${BPurple}Mostrar este panel de ayuda.${Color_Off}"
     echo -e "\n${BGray}EJEMPLOS:${Color_Off}"
     echo -e "\t${BGreen}./bruteForce.sh -t <target> -s ftp ${IGray}: Fuerza bruta al servicio FTP por el puerto por default.${Color_Off}"
@@ -102,6 +105,63 @@ function helpPanel(){
     echo -e "\t${BGreen}./bruteForce.sh -t <target> -s http -p 8080,8081 ${IGray}: Fuerza bruta al servicio HTTP en los puertos 8080 y 8081.${Color_Off}"
     echo -e "\t${BGreen}./bruteForce.sh -t <target> --service all ${IGray}: Realiza fuerza bruta a todos los servicios que encuentra.${Color_Off}\n"
     tput cnorm; exit 0
+}
+
+function checkUpdate(){
+    GIT=$(curl --silent https://github.com/m4lal0/bruteForce/blob/main/bruteForce.sh | grep 'VERSION=' | cut -d">" -f2 | cut -d"<" -f1 | cut -d"=" -f 2)
+    if [[ "$GIT" == "$VERSION" || -z $GIT ]]; then
+        echo -e "${BGreen}[✔]${Color_Off} ${BGreen}La versión actual es la más reciente.${Color_Off}\n"
+        tput cnorm; exit 0
+    else
+        echo -e "${Yellow}[*]${Color_Off} ${IWhite}Actualización disponible${Color_Off}"
+        echo -e "${Yellow}[*]${Color_Off} ${IWhite}Actualización de la versión${Color_Off} ${BWhite}$VERSION${Color_Off} ${IWhite}a la${Color_Off} ${BWhite}$GIT${Color_Off}"
+        update="1"
+    fi
+}
+
+function installUpdate(){
+    echo -en "${Yellow}[*]${Color_Off} ${IWhite}Instalando actualización...${Color_Off}"
+    git clone https://github.com/m4lal0/bruteForce &>/dev/null
+    chmod +x bruteForce/bruteForce.sh &>/dev/null
+    mv bruteForce/bruteForce.sh . &>/dev/null
+    if [ "$(echo $?)" == "0" ]; then
+        echo -e "${BGreen}[ OK ]${Color_Off}"
+    else
+        echo -e "${BRed}[ FAIL ]${Color_Off}"
+        tput cnorm && exit 1
+    fi
+    echo -en "${Yellow}[*]${Color_Off} ${IWhite}Limpiando...${Color_Off}"
+    wait
+    rm -rf bruteForce images README.md &>/dev/null
+    if [ "$(echo $?)" == "0" ]; then
+        echo -e "${BGreen}[ OK ]${Color_Off}"
+    else
+        echo -e "${BRed}[ FAIL ]${Color_Off}"
+        tput cnorm && exit 1
+    fi
+    echo -e "\n${BGreen}[✔]${Color_Off} ${IGreen}Versión actualizada a${Color_Off} ${BWhite}$GIT${Color_Off}\n"
+    tput cnorm && exit 0
+}
+
+function update(){
+    banner
+    echo -e "\n${BBlue}[+]${Color_Off} ${BWhite}bruteForce Versión $VERSION${Color_Off}"
+    echo -e "${BBlue}[+]${Color_Off} ${BWhite}Verificando actualización de bruteForce${Color_Off}"
+    checkUpdate
+    echo -e "\t${BWhite}$VERSION ${IWhite}Versión Instalada${Color_Off}"
+    echo -e "\t${BWhite}$GIT ${IWhite}Versión en Git${Color_Off}\n"
+    if [ "$update" != "1" ]; then
+        tput cnorm && exit 0;
+    else
+        echo -e "${BBlue}[+]${Color_Off} ${BWhite}Necesita actualizar!${Color_Off}"
+        tput cnorm
+        echo -en "${BPurple}[?]${Color_Off} ${BCyan}Quiere actualizar? (${BGreen}Y${BCyan}/${BRed}n${BCyan}):${Color_Off} " && read CONDITION
+        tput civis
+        case "$CONDITION" in
+            n|N) echo -e "\n${LBlue}[${BYellow}!${LBlue}] ${BRed}No se actualizo, se queda en la versión ${BWhite}$VERSION${Color_Off}\n" && tput cnorm && exit 0;;
+            *) installUpdate;;
+        esac
+    fi
 }
 
 function dependencies(){
@@ -129,6 +189,7 @@ for arg; do
 		--service)	args="${args}-s";;
 		--output)	args="${args}-o";;
         --port)	    args="${args}-p";;
+        --update)   args="${args}-u";;
         --help)	    args="${args}-h";;
 		*) [[ "${arg:0:1}" == "-" ]] || delim="\""
         args="${args}${delim}${arg}${delim} ";;
@@ -137,12 +198,13 @@ done
 
 eval set -- $args
 
-declare -i parameter_counter=0; while getopts ":t:s:o:p:h:" opt; do
+declare -i parameter_counter=0; while getopts ":t:s:o:p:h:u" opt; do
     case $opt in
         t) HOST_IP=$OPTARG && let parameter_counter+=1 ;;
         s) SERVICE=$OPTARG && let parameter_counter+=1 ;;
         o) OUTPUT=$OPTARG && let parameter_counter+=1 ;;
         p) PORT=$OPTARG && let parameter_counter+=1 ;;
+        u) update ;;
         h) helpPanel ;;
     esac
 done
